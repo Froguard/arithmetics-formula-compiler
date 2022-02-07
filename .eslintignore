@@ -1,0 +1,5 @@
+coverage
+tests
+.*rc.js
+*.config.js
+node_modules

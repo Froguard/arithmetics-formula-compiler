@@ -1,0 +1,20 @@
+{
+  "name": "arithmetics-formula-compiler",
+  "private": true,
+  "version": "0.0.1",
+  "description": "A arithmetics-formula compiler, convert to c or lisp style code",
+  "author": "Froguard <figure_wf@163.com>",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+      "node": ">=10.0",
+      "npm": ">= 5"
+  },
+  "repository": "git@github.com:Froguard/arithmetics-formula-compiler.git",  
+  "license": "MIT"  
+}
