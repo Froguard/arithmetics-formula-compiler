@@ -5,6 +5,9 @@
         "source.fixAll.eslint": true,
         "source.organizeImports": true
     },
+    "files.associations": {
+        ".lintstagedrc": "json"
+    },
     "eslint.enable": true,
     "eslint.validate": [
         "javascript",
