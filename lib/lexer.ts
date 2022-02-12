@@ -56,7 +56,7 @@ export function tokenize(input: string): Token[] {
                 // 2. link lastToken(the last one of tokens) 's next prop
                 const lastToken = tokens.length && tokens[tokens.length - 1];
                 if (lastToken) {
-                    lastToken.next = newToken
+                    lastToken.next = newToken;
                 }
                 // 3. add new token
                 tokens.push(newToken);

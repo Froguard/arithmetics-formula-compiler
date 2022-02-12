@@ -15,7 +15,7 @@
     "pretest:cover": "rm -rf ./__coverage__",
     "test:cover": "jest --coverage",
     "lint": "lint-staged",
-    "lint:fix": "eslint --fix './index.ts' 'lib/*.ts'",
+    "lint:fix": "eslint --fix '**/*.ts'",
     "postinstall": "husky install"
   },
   "dependencies": {},
