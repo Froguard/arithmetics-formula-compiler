@@ -47,7 +47,7 @@ interface TokenCtrOpts {
 /**
  * Token class
  */
-export class Token {
+export default class Token {
     type: TOKEN_TYPE;
     start: number; // start position of token's content
     end: number; // end position of token's content
