@@ -1,4 +1,4 @@
-import type { Config } from '@jest/types';
+import { Config } from '@jest/types';
 
 /**
  * ts-jest 测试配置文件
