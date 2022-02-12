@@ -12,7 +12,7 @@ export enum TOKEN_TYPE {
     eof = 'endOfFile', // end of file
 }
 
-const CHAR_2_TOKEN_TYPE_MAP = {
+const CHAR_2_TOKEN_TYPE_MAP: Record<string, TOKEN_TYPE> = {
     [OPERATOR_CHAR.plus]: TOKEN_TYPE.plus,
     [OPERATOR_CHAR.minus]: TOKEN_TYPE.minus,
     [OPERATOR_CHAR.asterrisk]: TOKEN_TYPE.asterrisk,

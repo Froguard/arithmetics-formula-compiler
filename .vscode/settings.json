@@ -13,5 +13,5 @@
         "javascript",
         "typescript"
     ],
-    "typescript.tsdk": "node_module/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib"
 }
