@@ -7,7 +7,7 @@ export enum TOKEN_TYPE {
     plus = 'plus', // '+'
     minus = 'minus', // '-'
     asterrisk = 'asterrisk', // '*'
-    slah = 'slah', // '/'
+    slash = 'slash', // '/'
     number = 'number', // '0'~'9'
     illegal = 'illegal', // illegal
     eof = 'endOfFile', // end of file
@@ -17,7 +17,7 @@ const CHAR_2_TOKEN_TYPE_MAP: Record<string, TOKEN_TYPE> = {
     [OPERATOR_CHAR.plus]: TOKEN_TYPE.plus,
     [OPERATOR_CHAR.minus]: TOKEN_TYPE.minus,
     [OPERATOR_CHAR.asterrisk]: TOKEN_TYPE.asterrisk,
-    [OPERATOR_CHAR.slah]: TOKEN_TYPE.slah,
+    [OPERATOR_CHAR.slash]: TOKEN_TYPE.slash,
     [PARENTHESIS_CHAR.left]: TOKEN_TYPE.leftParenthesis,
     [PARENTHESIS_CHAR.right]: TOKEN_TYPE.rightParenthesis,
     // '0'-'9': TOKEN_TYPE.number

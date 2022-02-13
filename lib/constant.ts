@@ -10,7 +10,7 @@ export enum OPERATOR_CHAR {
     plus = '+',
     minus = '-',
     asterrisk = '*',
-    slah = '/',
+    slash = '/',
 }
 
 export enum PARENTHESIS_CHAR {

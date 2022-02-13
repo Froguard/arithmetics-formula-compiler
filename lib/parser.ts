@@ -7,9 +7,9 @@ import { genSpace } from "./util";
 
 const debug = debugCreate('TEST');
 
-const { leftParenthesis, rightParenthesis, number, plus, minus, asterrisk, slah, illegal, eof } = TOKEN_TYPE;
+const { leftParenthesis, rightParenthesis, number, plus, minus, asterrisk, slash, illegal, eof } = TOKEN_TYPE;
 const SPACE = genSpace(2);
-const isOperatorType = (type: TOKEN_TYPE) => [plus, minus, asterrisk, slah].includes(type);
+const isOperatorType = (type: TOKEN_TYPE) => [plus, minus, asterrisk, slash].includes(type);
 
 enum PRECEDENCE {
     Min = 0,
@@ -21,7 +21,7 @@ enum PRECEDENCE {
 function type2precedence(type: TOKEN_TYPE) {
     switch (type) {
         case asterrisk:
-        case slah: {
+        case slash: {
             return PRECEDENCE.High;
         }
         case minus:

@@ -18,7 +18,7 @@ const numLitr1 = new NumberLiteral({ value: '1' });
 const numLitr2 = new NumberLiteral({ value: '2' });
 const numLitr3 = new NumberLiteral({ value: '3' });
 const operator1 = OPERATOR_CHAR.plus; // +
-const operator2 = OPERATOR_CHAR.slah; // /
+const operator2 = OPERATOR_CHAR.slash; // /
 const binExpr1 = new BinaryExpression({ left: numLitr1, operator: operator1 }); // 1+?
 const binExpr2 = new BinaryExpression({ left: numLitr2, operator: operator2, right: numLitr3 }); // 2/3
 binExpr1.setRight(binExpr2);

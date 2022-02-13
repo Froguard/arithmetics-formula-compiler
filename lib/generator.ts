@@ -6,7 +6,7 @@ const OPERATOR_2_METHOD_NAME = {
     [OPERATOR_CHAR.plus]: 'add',
     [OPERATOR_CHAR.minus]: 'subtract',
     [OPERATOR_CHAR.asterrisk]: 'multiple',
-    [OPERATOR_CHAR.slah]: 'divide',
+    [OPERATOR_CHAR.slash]: 'divide',
 };
 
 
@@ -93,7 +93,7 @@ function ast2value(astNode: Node): number {
                 case OPERATOR_CHAR.asterrisk: {
                     return parseFloat(`${leftVal * rightVal}`);
                 }
-                case OPERATOR_CHAR.slah: {
+                case OPERATOR_CHAR.slash: {
                     return parseFloat(`${leftVal / rightVal}`);
                 }
                 default: return 0;
