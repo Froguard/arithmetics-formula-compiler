@@ -39,8 +39,8 @@ interface NodeCtrOpts {
 const ignorePosReplacer = genJsonIgnoreReplace(['start', 'end']);
 export abstract class Node {
     type: NODE_TYPE;
-    start: number;
-    end: number;
+    start?: number;
+    end?: number;
 
     constructor(options: Partial<NodeCtrOpts> = {}) {
         const { type, start, end } = options;
@@ -87,7 +87,7 @@ interface NumLitCtrOpts extends Omit<NodeCtrOpts, 'type'> {
     value: string;
 }
 export class NumberLiteral extends Expression {
-    readonly type: NODE_TYPE.numberLiteral;
+    readonly type = NODE_TYPE.numberLiteral;
     readonly raw: string;
     value: string;
 
@@ -97,6 +97,7 @@ export class NumberLiteral extends Expression {
         const v = value || '';
         this.raw = v;
         this.value = v.startsWith('.') ? `0${v}` : v; // .1 -> 0.1
+        
     }
 
     public toFormula(): string {
@@ -159,7 +160,7 @@ export class BinaryExpression extends Expression {
     private _setSubExpr(expr: unknown, isRight = false) {
         const exprName = isRight ? 'right' : 'left';
         const posName = isRight ? 'end' : 'start';
-        if (expr instanceof Expression) {
+        if (expr instanceof Expression && expr !== this) {
             this[exprName] = expr;
             this[posName] = expr[posName];
         } else {

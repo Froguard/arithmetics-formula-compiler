@@ -1,4 +1,5 @@
 import { NUMBER_CHAR, OPERATOR_CHAR, PARENTHESIS_CHAR } from './constant';
+import { isChar } from './util';
 
 export enum TOKEN_TYPE {
     leftParenthesis = 'leftParenthesis', // '('
@@ -30,6 +31,19 @@ Object.values(NUMBER_CHAR).forEach(v => CHAR_2_TOKEN_TYPE_MAP[`${v}`] = TOKEN_TY
 export const char2tokenType = (char: string) => CHAR_2_TOKEN_TYPE_MAP[char] || TOKEN_TYPE.illegal;
 
 /**
+ * get string's tokenType
+ * @param value 
+ * @returns 
+ */
+export function value2tokenType (value: string) {
+    if (isChar(value)) {
+        return char2tokenType(value);
+    } else {
+        return !!value.match(/^\d?\.?\d+$/) ? TOKEN_TYPE.number : TOKEN_TYPE.illegal;
+    }
+}
+
+/**
  * format a token array to string
  * @param tokens 
  * @returns 
@@ -49,7 +63,7 @@ interface TokenCtrOpts {
  * Token class
  */
 export class Token {
-    type: TOKEN_TYPE;
+    readonly type: TOKEN_TYPE;
     start: number; // start position of token's content
     end: number; // end position of token's content
     value: string; // token's content, such as '123', '+', '/'
@@ -62,7 +76,7 @@ export class Token {
      */
     constructor(options: Partial<TokenCtrOpts> = {}) {
         const { type, start, end, value, next } = options;
-        this.type = type || TOKEN_TYPE.illegal;
+        this.type = type || value2tokenType(value || '');
         this.start = start || 0;
         this.end = end || 0;
         this.value = value || 'unknown';

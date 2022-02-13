@@ -24,7 +24,9 @@ export const isOperator = (c: string) => isChar(c) && operators.includes(c as OP
  */
 export function genSpace(n: number): string {
     let s = '';
-    while(n--) { s += ' '; }
+    if (n) {
+        while(--n >= 0) { s += ' '; }
+    }
     return s;
 }
 
