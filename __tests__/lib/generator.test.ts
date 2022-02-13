@@ -4,6 +4,7 @@ import { parse } from '../../lib/parser';
 
 describe('generate', () => {
     const testcases = [
+        { input: '', c: '', lisp: '' },
         { input: '1+2/3', c: 'add(1, divide(2, 3))', lisp: 'add 1 (divide 2 3)' },
         { input: '2/3', c: 'divide(2, 3)', lisp: 'divide 2 3' },
         { input: '6-(7*2)', c: 'subtract(6, multiple(7, 2))', lisp: 'subtract 6 (multiple 7 2)' },

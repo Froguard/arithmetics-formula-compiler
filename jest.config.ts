@@ -6,6 +6,8 @@ import { Config } from '@jest/types';
 export default async (): Promise<Config.InitialOptions> => {
     return {
         verbose: true,
+        bail: true,
+        noStackTrace: true,
         // coverage
         collectCoverage: !!process.env.coverage,
         coverageDirectory: '__coverage__',
