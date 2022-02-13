@@ -24,7 +24,7 @@ const binExpr2 = new BinaryExpression({ left: numLitr2, operator: operator2, rig
 binExpr1.setRight(binExpr2);
 const program = new Program({ body: [ binExpr1 ] });
 
-describe('', () => {
+describe('parse:', () => {
     it('parse(\'1+2/3\')', () => expect(parse(tokens)).toEqual(program));
     
     const invalidInputs = [
