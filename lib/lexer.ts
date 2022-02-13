@@ -15,7 +15,7 @@ import { genSpace, isDigit, isDot, isSpace } from './util';
 export function tokenize(input: string): Token[] {
     const tokens: Token[] = [];
     const inputLen = input.length;
-    if (inputLen) {
+    if (inputLen > 0) {
         let pos = 0;
         while (pos < inputLen) {
             const char = input.charAt(pos);
@@ -63,7 +63,6 @@ export function tokenize(input: string): Token[] {
             }
         }
     }
-
     return tokens;
 }
 

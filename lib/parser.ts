@@ -66,7 +66,6 @@ export function parse(tokens: Token[]): Program {
                     scaner.scan();
                 } else {
                     // warinig it
-                    console.log(scaner.peek());
                     const errMsg = `${space}Unclose parenthesis error: in position ${scaner.peek().start}, ')' was not found!`; 
                     console.error(errMsg);
                     let errDetail = `${space}${srcCode}\n`;
@@ -107,7 +106,11 @@ export function parse(tokens: Token[]): Program {
     }
 
     scaner.scan();
-    return new Program({ body: [ parseExpr() ] });
+    const body = [];
+    if (scaner.peek().type != eof) {
+        body.push(parseExpr());
+    } 
+    return new Program({ body });
 }
 
 
@@ -118,7 +121,7 @@ export class TokenScanner {
     private curPos: number;
     
     constructor(tokens: Token[]) {
-        this.tokens = tokens;
+        this.tokens = ([] as Token[]).concat(tokens || []);
         this.curPos = - 1;
         this.END_TOKEN = this._calcEndToken();
         this.curToken = this.END_TOKEN;

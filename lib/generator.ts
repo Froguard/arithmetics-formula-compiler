@@ -63,3 +63,43 @@ export function generate2lisp(ast: Node) {
     const code = ast2lisp(ast);
     return code.match(/^\((add|subtract|mutilple|divide).+\)$/) ? code.slice(1, -1) : code;
 }
+
+
+function ast2value(astNode: Node): number {
+    const { type } = astNode;
+    switch (type) {
+        case NODE_TYPE.program: {
+            const { body = [] } = astNode as Program;
+            if (body.length) {
+                const root = body[0];
+                return ast2value(root);
+            }
+            return 0;
+        }
+        case NODE_TYPE.numberLiteral: {
+            return parseFloat((astNode as NumberLiteral).value);
+        }
+        case NODE_TYPE.binaryExpression: {
+            const { left, right, operator } = astNode as BinaryExpression;
+            const leftVal = ast2value(left as Node); // as Node 是为了 jest 检查
+            const rightVal = ast2value(right as Node);
+            switch (operator) {
+                case OPERATOR_CHAR.plus: {
+                    return leftVal + rightVal;
+                }
+                case OPERATOR_CHAR.minus: {
+                    return leftVal - rightVal;
+                }
+                case OPERATOR_CHAR.asterrisk: {
+                    return parseFloat(`${leftVal * rightVal}`);
+                }
+                case OPERATOR_CHAR.slah: {
+                    return parseFloat(`${leftVal / rightVal}`);
+                }
+                default: return 0;
+            }
+        }
+        default: return 0;
+    }
+}
+export const calculate = (node: Node) => ast2value(node);
