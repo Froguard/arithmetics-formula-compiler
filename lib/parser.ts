@@ -78,7 +78,7 @@ export function parse(tokens: Token[]): Program {
             }
             default: {
                 const errMsg = `Invalid token: ${scaner.peek()}`; 
-                console.error(`${errMsg}\n${space}${srcCode}\n${space}${genSpace(start)}^`);
+                console.warn(`${errMsg}\n${space}${srcCode}\n${space}${genSpace(start)}^`);
                 throw new Error(`Parse error: \n${errMsg}`);
             }
         }

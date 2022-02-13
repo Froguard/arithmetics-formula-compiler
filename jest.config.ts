@@ -3,11 +3,11 @@ import { Config } from '@jest/types';
 /**
  * ts-jest 测试配置文件
  */
- export default async (): Promise<Config.InitialOptions> => {
+export default async (): Promise<Config.InitialOptions> => {
     return {
         verbose: true,
         // coverage
-        collectCoverage: true,
+        collectCoverage: !!process.env.coverage,
         coverageDirectory: '__coverage__',
         coveragePathIgnorePatterns: ['/node_modules/'],
         coverageReporters: ['json', 'html'],
