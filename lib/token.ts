@@ -36,6 +36,7 @@ export const char2tokenType = (char: string) => CHAR_2_TOKEN_TYPE_MAP[char] || T
  */
 export const tokensFormatter = (tokens: Token[]) => (`[\n${tokens.map(tk => `  ${tk}`).join(',\n')}\n]`);
 
+
 interface TokenCtrOpts {
     type: TOKEN_TYPE;
     start: number; // start position of token's content
@@ -47,7 +48,7 @@ interface TokenCtrOpts {
 /**
  * Token class
  */
-export default class Token {
+export class Token {
     type: TOKEN_TYPE;
     start: number; // start position of token's content
     end: number; // end position of token's content

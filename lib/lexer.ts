@@ -1,4 +1,4 @@
-import Token, { char2tokenType, TOKEN_TYPE } from "./token";
+import { char2tokenType, Token, TOKEN_TYPE } from "./token";
 import { genSpace, isDigit, isDot, isSpace } from './util';
 
 /**
