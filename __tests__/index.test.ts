@@ -6,13 +6,17 @@ describe('compiler:', () => {
         '.1',
         '1+2/3',
         '1+2/3-4*5*(6+.7)',
+        '1+2/3-5/(6*2)',
+        '1+2/3-5/(6*2)-1+2/3-4*5*(6+.7)',
         '100/2',
     ];
+    // parse by string
+    testcase.forEach(inp => it(`parse.parseByString('${inp}')`, ()=>expect(() => {parser.parseByString(inp);}).not.toThrowError()));
+    
+    // calculate
     testcase.forEach(inp => {
-        // parse by string
-        it(`parse.parseByString('${inp}')`, () => expect(() => { parser.parseByString(inp); }).not.toThrowError());
-
-        // calculate
-        it(`calculate('${inp}')`, () => expect(calculate(inp)).toEqual(eval(inp || '0')));
+        const evalCalcRes = eval(inp) || 0;
+        it(`calculate('${inp}') ==> ${evalCalcRes}`, () => expect(calculate(inp)).toEqual(evalCalcRes));
     });
+    
 });
