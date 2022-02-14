@@ -48,7 +48,8 @@ export function parse(tokens: Token[]): Program {
 
     // 解析普通表达式
     function parseExpr(precedence = PRECEDENCE.Min, space = SPACE): Expression {
-        const { type, value, start, end } = scaner.peek();
+        const token = scaner.peek();
+        const { type, value, start, end } = token;
         const newSpace = space + SPACE_LINE;
         let expr = null;
         switch (type) {
@@ -69,20 +70,19 @@ export function parse(tokens: Token[]): Program {
                     scaner.scan();
                 } else {
                     // warinig it
-                    const errMsg = `${space}Unclose parenthesis error: in position ${scaner.peek().start}, ')' was not found!`; 
-                    console.error(errMsg);
-                    let errDetail = `${space}${srcCode}\n`;
-                    errDetail += `${space}${genSpace(start)}^${genSpace(scaner.peek().start - start - 1)}^`;
+                    const errMsg = `Invalid token: '${token.value} , Unclose parenthesis error in position ${curToken.start}, ')' was not found!`; 
+                    let errDetail = `${errMsg}\n${srcCode}\n`;
+                    errDetail += `${genSpace(start)}^${genSpace(curToken.start - start - 1)}^\n`;
                     console.warn(errDetail);
-                    throw new Error(`Parse error: \n${errMsg}`);
+                    throw new SyntaxError(`Parse error! ${errMsg}`);
                 }
                 expr = parseFactor(sunExpr, precedence, newSpace);
                 break;
             }
             default: {
-                const errMsg = `Invalid token: ${scaner.peek()}`; 
-                console.warn(`${errMsg}\n${space}${srcCode}\n${space}${genSpace(start)}^`);
-                throw new Error(`Parse error: \n${errMsg}`);
+                const errMsg = `Invalid token: '${token.value}' ${type == rightParenthesis ? ', Unpaired right parenthesis \')\'!' : '!'}`; 
+                console.warn(`${errMsg}\n${srcCode}\n${genSpace(start)}^`);
+                throw new SyntaxError(`Parse error! ${errMsg}`);
             }
         }
         debug(`${space}解析完成,返回表达式: ${cyan(expr?.toFormula())}`);
