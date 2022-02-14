@@ -1,3 +1,9 @@
+import { parser } from "./index";
+// parser.parseByString('1+2/3+(1+99)    )');
+// parser.parseByString('1+2/3+(1+99)   + 1 )');
+parser.parseByString('1  + (2+3) + 456  )');
+
+/*
 import { calculate } from './index';
 import { tokenize, untokenize } from './lib/lexer';
 import { parse } from './lib/parser';
@@ -20,3 +26,4 @@ console.log(ast.toFormula());
 console.log('\n\n----------\n\n');
 const input3 = '1+2/3';
 console.log(calculate(input3)); // 1.6666666666666665
+*/
