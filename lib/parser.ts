@@ -40,6 +40,12 @@ function type2precedence(type: TOKEN_TYPE) {
     }
 }
 
+interface ParseFactorOpts {
+    left: Expression;
+    precedence: PRECEDENCE;
+    space: string;
+}
+
 export function parse(tokens: Token[]): Program {
     const srcCode = untokenize(tokens);
 
@@ -47,7 +53,7 @@ export function parse(tokens: Token[]): Program {
     const debugInfo = (msg: string, space: string) => debug(`${space}解析token: ${msg}, tokens[${gray(scaner.pos)}]=${gray(scaner.peek())}`);
 
     // 解析普通表达式
-    function parseExpr(precedence = PRECEDENCE.Min, space = SPACE): Expression {
+    function parseExpr(precedence: PRECEDENCE, space = SPACE): Expression {
         const token = scaner.peek();
         const { type, value, start, end } = token;
         const newSpace = space + SPACE_LINE;
@@ -57,7 +63,7 @@ export function parse(tokens: Token[]): Program {
                 debugInfo(`读到数字 ${green(value)}`, space);
                 scaner.scan();
                 const left = new NumberLiteral({ value, start, end });
-                expr = parseFactor(left, precedence, newSpace);
+                expr = parseFactor({left, precedence, space: newSpace});
                 break;
             }
             case leftParenthesis: {
@@ -70,17 +76,16 @@ export function parse(tokens: Token[]): Program {
                     scaner.scan();
                 } else {
                     // warinig it
-                    const errMsg = `Invalid token: '${token.value} , Unclose parenthesis error in position ${curToken.start}, ')' was not found!`; 
-                    let errDetail = `${errMsg}\n${srcCode}\n`;
-                    errDetail += `${genSpace(start)}^${genSpace(curToken.start - start - 1)}^\n`;
-                    console.warn(errDetail);
+                    const errMsg = `Unexcepted token: '${token.value} , Unclose parenthesis error in position ${curToken.start}, ')' was not found!`; 
+                    const errDetail = `${srcCode}\n${genSpace(start)}^${genSpace(curToken.start - start - 1)}^\n`;
+                    console.warn(`${errMsg}\n${errDetail}`);
                     throw new SyntaxError(`Parse error! ${errMsg}`);
                 }
-                expr = parseFactor(sunExpr, precedence, newSpace);
+                expr = parseFactor({left: sunExpr, precedence, space: newSpace});
                 break;
             }
             default: {
-                const errMsg = `Invalid token: '${token.value}' ${type == rightParenthesis ? ', Unpaired right parenthesis \')\'!' : '!'}`; 
+                const errMsg = `Unexcepted token: '${token.value}' ${type == rightParenthesis ? ', Unpaired right parenthesis \')\' !' : '!'}`; 
                 console.warn(`${errMsg}\n${srcCode}\n${genSpace(start)}^`);
                 throw new SyntaxError(`Parse error! ${errMsg}`);
             }
@@ -90,8 +95,12 @@ export function parse(tokens: Token[]): Program {
     }
 
     // 解析复杂表达式
-    function parseFactor(left: Expression, precedence = PRECEDENCE.Min, space = SPACE): Expression {
+    // function parseFactor(left: Expression, precedence = PRECEDENCE.Min, space = SPACE): Expression {
+    function parseFactor(options: ParseFactorOpts): Expression {
+        const { precedence, space } = options;
+        let { left } = options;
         debug(`${space}解析factor开始(wile-loop): ${gray(scaner.peek())}`);
+        
         // loop
         while (scaner.peek().type != eof) {
             const tmpToken = scaner.peek();
@@ -117,7 +126,7 @@ export function parse(tokens: Token[]): Program {
     scaner.scan();
     const body = [];
     if (scaner.peek().type != eof) {
-        body.push(parseExpr());
+        body.push(parseExpr(PRECEDENCE.Min));
     } 
     return new Program({ body });
 }
