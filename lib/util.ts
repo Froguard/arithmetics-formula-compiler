@@ -1,3 +1,4 @@
+import chalk from 'chalk'; // 请保证 chalk 的 version 在 ^4.1.2， 否则会报错 esm 模块加载问题
 import { DOT_CHAR, OPERATOR_CHAR, PARENTHESIS_CHAR } from "./constant";
 
 export const isString = (s: unknown) => typeof s === 'string' || s instanceof String;
@@ -16,6 +17,11 @@ export const isRightParenthesis = (c: string) => c === PARENTHESIS_CHAR.right; /
 
 const operators = Object.values(OPERATOR_CHAR);
 export const isOperator = (c: string) => isChar(c) && operators.includes(c as OPERATOR_CHAR); // a;; operators
+
+export const gray = (msg: any) => chalk.gray(`${msg}`);
+export const cyan = (msg: any) => chalk.cyan(`${msg}`);
+export const green = (msg: any) => chalk.green(`${msg}`);
+export const yellow = (msg: any) => chalk.yellow(`${msg}`);
 
 /**
  * generate white space by setted length n
