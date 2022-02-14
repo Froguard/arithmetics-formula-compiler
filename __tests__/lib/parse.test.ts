@@ -30,7 +30,10 @@ describe('parse:', () => {
     const invalidInputs = [
         '1+2/3+(1', // 落单的左括号 (
         '1+2/3+)1', // 落单的右括号 )
+        // '1 + 1 )', // 多余的右括号 ) // TODO: 待完善这个边界逻辑
         // '1+2/3+(1+99)    )', // 多余的右括号 ) // TODO: 待完善这个边界逻辑
+        // '1+2/3+(1+99)   + 1 )', // 多余的右括号 ) // TODO: 待完善这个边界逻辑
+        // '1  + (2+3) + 456  )', // 多余的右括号 ) // TODO: 待完善这个边界逻辑
     ];
     invalidInputs.forEach(inp => it(`parse('${inp}') ===> throw error`, () => {
         const tokens2 = tokenize(inp);
