@@ -6,6 +6,8 @@
 
 > eg: c: `( 1 + 2 ) / 3` ==>  `divide(add(1, 2), 3)`
 
+> warning: It is just a demo, dont use it in your production project
+
 ## dev
 
 #### prepare
